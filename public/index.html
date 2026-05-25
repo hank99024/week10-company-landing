@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel & Demon - 用歷史的絕對理性，擊退你交易時的恐懼與貪婪。</title>
+    <style>
+        /* --- Brand & Design System --- */
+        :root {
+            /* Angel Palette (Light) */
+            --bg: oklch(98% 0.01 90);
+            --surface: oklch(100% 0 0);
+            --fg: oklch(20% 0.018 70);
+            --muted: oklch(48% 0.012 70);
+            --border: oklch(90% 0.006 95);
+            --accent: oklch(52% 0.10 28);
+
+            /* Demon Palette (Dark) */
+            --bg-dark: oklch(15% 0.02 250);
+            --fg-dark: oklch(95% 0.01 250);
+            --chaos-1: oklch(40% 0.1 0);
+            --chaos-2: oklch(70% 0.2 260);
+
+            /* Typography */
+            --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 4rem;
+            --space-xxl: 8rem;
+
+            /* Other */
+            --radius: 4px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- CSS Reset --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        
+        h1 { font-size: 3.052rem; }
+        h2 { font-size: 2.441rem; }
+        h3 { font-size: 1.953rem; }
+        p { max-width: 65ch; }
+
+        /* --- Utility Classes --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--space-md);
+            padding-right: var(--space-md);
+        }
+
+        .section {
+            padding-top: var(--space-xl);
+            padding-bottom: var(--space-xl);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .hero__demon {
+            background-color: var(--bg-dark);
+            padding: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero__demon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--chaos-1), var(--bg-dark), var(--chaos-2));
+            background-size: 200% 200%;
+            animation: chaos-gradient 15s ease infinite;
+            opacity: 0.2;
+        }
+        
+        @keyframes chaos-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero__angel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-xxl) var(--space-xl);
+        }
+
+        .hero__title {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero__tagline {
+            font-size: 1.25rem;
+            color: var(--muted);
+            max-width: 40ch;
+        }
+
+        /* --- Founder Section --- */
+        .founder-story {
+            background-color: var(--bg);
+        }
+        .founder-story .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--space-xl);
+            align-items: start;
+        }
+        .founder-story__title {
+            font-size: 1.2rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: sticky;
+            top: var(--space-xl);
+        }
+        .founder-story__text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            font-family: var(--font-display);
+            color: var(--fg);
+        }
+
+        /* --- Clients Section --- */
+        .clients {
+            background-color: var(--bg-dark);
+            color: var(--fg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clients::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="20" viewBox="0 0 100 20"><path d="M0 10 L20 15 L40 5 L60 12 L80 8 L100 13" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            animation: bg-scroll 20s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes bg-scroll {
+            from { background-position: 0 0; }
+            to { background-position: -200px 0; }
+        }
+
+        .clients .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .clients__title {
+            font-size: 1.2rem;
+            color: var(--fg-dark);
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-lg);
+        }
+
+        .clients__description {
+            font-size: 2rem;
+            font-family: var(--font-display);
+            max-width: 30ch;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-wrap: balance;
+        }
+
+        .clients__highlight {
+            color: var(--chaos-2);
+            opacity: 0.8;
+        }
+
+        /* --- Services Section --- */
+        .services {
+            background-color: var(--bg);
+        }
+        .services__title {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        .services__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+        .service-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+            transition: var(--transition);
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .service-card__title {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+        .service-card__description {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Form Section --- */
+        .form-section {
+            background-color: var(--bg-dark);
+            color: var(--fg-dark);
+            text-align: center;
+        }
+        .form-section__title {
+            color: var(--fg-dark);
+            margin-bottom: var(--space-sm);
+        }
+        .form-section__subtitle {
+            color: var(--fg-dark);
+            opacity: 0.7;
+            margin-bottom: var(--space-xl);
+        }
+        .signup-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--fg-dark);
+            opacity: 0.8;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--space-sm);
+            background-color: oklch(from var(--bg-dark) calc(l + 0.05));
+            border: 1px solid oklch(from var(--border) calc(l - 0.5));
+            border-radius: var(--radius);
+            color: var(--fg-dark);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--chaos-2);
+            box-shadow: 0 0 0 3px oklch(from var(--chaos-2) l a c / 0.3);
+        }
+        .form-submit {
+            width: 100%;
+            padding: var(--space-md);
+            background-color: var(--accent);
+            color: var(--surface);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .form-submit:hover {
+            background-color: oklch(from var(--accent) calc(l + 0.05));
+        }
+        .form-submit:disabled {
+            background-color: var(--muted);
+            cursor: not-allowed;
+        }
+
+        /* --- Success Screen --- */
+        .success-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1000;
+            pointer-events: none; /* Add this */
+        }
+        .success-screen.visible {
+            opacity: 1;
+            pointer-events: auto; /* And this */
+        }
+        .success-screen__text {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            line-height: 1.6;
+            color: var(--muted);
+            max-width: 25ch;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main-content">
+        <header class="hero">
+            <div class="hero__demon">
+                <!-- This side represents the chaotic "Demon" -->
+            </div>
+            <div class="hero__angel">
+                <h1 class="hero__title">Angel & Demon</h1>
+                <p class="hero__tagline">用歷史的絕對理性，擊退你交易時的恐懼與貪婪。</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="section founder-story">
+                <div class="container">
+                    <h2 class="founder-story__title">創辦人故事</h2>
+                    <div class="founder-story__content">
+                        <p class="founder-story__text">
+                            我是一名資工系學生。我開這家公司，是因為我不想看到貪婪的人繼續貪婪，也不想看到害怕的人繼續害怕。在 AI 能力暴增的時代，我發現 AI 可以幫人類做很多事、省下大量時間。身為懂技術、懂 HCI 的資工學生，我的使命不是去幫企業榨取用戶的注意力，而是用人機互動（HCI）作為解毒劑，把主導權還給人類，透過建立「理性防護罩」，讓人們省下焦慮的時間，去專注在真正有尊嚴、有創造力的事情上。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section clients">
+                <div class="container">
+                    <h2 class="clients__title">我們的客戶</h2>
+                    <p class="clients__description">
+                        您是否正被困在<span class="clients__highlight">不斷加速的 K 線跑步機</span>上，身心俱疲？看著動態跳動的紅綠數字，感覺自己正處在被 AI 取代的邊緣，過往的經驗變得脆弱，<span class="clients__highlight">極度焦慮</span>。
+                    </p>
+                </div>
+            </section>
+
+            <section class="section services">
+                <div class="container">
+                    <h2 class="services__title">我們如何提供協助</h2>
+                    <div class="services__grid">
+                        <div class="service-card">
+                            <h3 class="service-card__title">情緒干擾診斷</h3>
+                            <p class="service-card__description">分析你現有的看盤與交易工作流，找出貪婪與害怕乘虛而入的心理漏洞。</p>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-card__title">實例介入 HCI 機制設計</h3>
+                            <p class="service-card__description">設計「歷史實例彈出」的互動防禦框架，在焦躁瞬間用證據拉回平靜。</p>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-card__title">機制信任說明書交付</h3>
+                            <p class="service-card__description">提供完全透明的 AI 運作說明書，讓你徹底理解機器脈絡，重拾決策掌控權。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section form-section" id="contact">
+                <div class="container">
+                    <h2 class="form-section__title">告別焦慮，重拾平靜</h2>
+                    <p class="form-section__subtitle">留下您的資訊，讓 Angel & Demon 成為您溫柔而堅定的決策陪練夥伴。</p>
+                    <form class="signup-form" id="signup-form">
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="method">目前使用的交易方法</label>
+                            <input type="text" id="method" name="method" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="anxiety">最大的 AI 焦慮</label>
+                            <textarea id="anxiety" name="anxiety" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">靜候平靜的召喚</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="success-screen" class="success-screen hidden">
+        <p class="success-screen__text">
+            深呼吸。Angel 已經收到你的求助，我們即將陪你一起擊退 Demon。請靜候平靜的召喚。
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signup-form');
+            const mainContent = document.getElementById('main-content');
+            const successScreen = document.getElementById('success-screen');
+            const submitButton = form.querySelector('.form-submit');
+
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                
+                const originalButtonText = submitButton.textContent;
+                submitButton.textContent = '傳送中...';
+                submitButton.disabled = true;
+
+                const formData = {
+                    name: document.getElementById('name').value,
+                    method: document.getElementById('method').value,
+                    anxiety: document.getElementById('anxiety').value,
+                };
+
+                try {
+                    const response = await fetch('/api/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || '發生錯誤，請稍後再試。');
+                    }
+                    
+                    mainContent.style.transition = 'opacity 0.5s ease-out';
+                    mainContent.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        mainContent.classList.add('hidden');
+                        successScreen.classList.remove('hidden');
+                        setTimeout(() => {
+                            successScreen.classList.add('visible');
+                        }, 50);
+                    }, 500);
+
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    alert(`提交失敗：${error.message}`);
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
